@@ -11,7 +11,7 @@ hist4 = [("split","steal"),("steal","steal"),("split","steal"),("steal","split")
 # Your team's 1st strategy (leave blank if you are not the driver)
 # Explanation of Strategy:
 # 
-
+print("Strategy 1")
 
 # Your team's 2nd strategy (leave blank if you are not the driver)
 # Explanation of Strategy:
