@@ -11,13 +11,75 @@ hist4 = [("split","steal"),("steal","steal"),("split","steal"),("steal","split")
 # Your team's 1st strategy (leave blank if you are not the driver)
 # Explanation of Strategy:
 # 
-print("Strategy 1")
+def strategy1(history):
+ """
+    Always steal, unless your opponent steals
+    """
+def strategy1(history):
+    if len(history) < 3:
+       return "steal"
+    else:
+        if history[-1] == "steal":
+          return "split"
+        else:
+            return "steal"
+print(strategy1(hist3)) # Expected: steal
 
 # Your team's 2nd strategy (leave blank if you are not the driver)
 # Explanation of Strategy:
-# 
+ #
 
+ # Strategy 2: Choose split or steal randomly, but favor stealing if the opponent has done so more than half the time.
+ # This strategy also keeps track of the number of times the opponent has stealed.
+ # 
+def strategy2(history):
+    global counter
+    counter = 0
+   
+    for steal in history:
+        if steal[-1] == "steal":
+            counter +=1
+         
+
+    if len(history) <= 5:
+        return random.choice(["split", "steal"])
+    else:
+        if counter > (len(history) / 2):
+            return "split"
+        elif counter < (len(history) / 2):
+            return "steal"
+        else:
+            return random.choice(["split", "steal"])
 
 # Your team's 3rd strategy (leave blank if you are not the driver)
 # Explanation of Strategy:
 # 
+def strategy3(history):
+
+    rounds_played = len(history)
+
+    if rounds_played <= 3: # peaceful start
+        return "split"
+    
+    opponent_moves = [round[1] for round in history] # creates a list with all of the opponents moves
+    steal_count = opponent_moves.count("steal")
+    split_count = opponent_moves.count("split")
+
+    steal_ratio = steal_count/rounds_played # ratio of teals to number of rounds
+    split_ratio = split_count/rounds_played
+
+
+    if steal_ratio > 0.6:    
+        return "steal"
+      
+    elif split_ratio > 0.8: # steal if opponent is overly peaceful
+        return "steal"
+        
+    elif steal_ratio < 0.3:
+        return "split"
+        
+    elif steal_ratio == 0.5:
+        return random.choice(["split", "steal"])
+
+    else:
+        return random.choice(["steal", "steal", "steal", "split"])
